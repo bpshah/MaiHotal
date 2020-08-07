@@ -1,4 +1,4 @@
-package com.example.HotelBookingSystem;
+package com.example.HotelBookingSystem.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,13 +19,13 @@ public class UserHomeActivity extends AppCompatActivity {
 
     public void nextPage(View view)
     {
-        Intent intent = new Intent(this, com.example.HotelBookingSystem.UpdateProfile.class);
+        Intent intent = new Intent(this, UpdateProfile.class);
         startActivity(intent);
     }
 
     public void nextPage1(View view)
     {
-        Intent intent = new Intent(this, com.example.HotelBookingSystem.ViewMyReservations.class);
+        Intent intent = new Intent(this, ViewMyReservations.class);
         startActivity(intent);
     }
 
@@ -38,7 +38,7 @@ public class UserHomeActivity extends AppCompatActivity {
 
     public void logout(View view)
     {
-        Intent intent = new Intent(this, com.example.HotelBookingSystem.MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         Toast.makeText(this,"Logged Out!",Toast.LENGTH_SHORT).show();
         startActivity(intent);
         finish();

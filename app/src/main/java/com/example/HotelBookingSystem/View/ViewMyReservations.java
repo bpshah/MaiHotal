@@ -1,18 +1,18 @@
-package com.example.HotelBookingSystem;
+package com.example.HotelBookingSystem.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.HotelBookingSystem.R;
+
 import java.util.ArrayList;
 
-public class ReservationListManager extends AppCompatActivity {
+public class ViewMyReservations extends AppCompatActivity {
 
     SearchView searchView;
     ListView listView;
@@ -22,17 +22,14 @@ public class ReservationListManager extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservation_list_manager);
+        setContentView(R.layout.activity_view_my_reservations);
 
         searchView = (SearchView) findViewById(R.id.searchView);
         listView = (ListView) findViewById(R.id.view_rooms);
 
         list = new ArrayList<>();
-        list.add("Reservation Id:- 1 Check-in Date:- 07/18/2020 Check-out Date:- 07/20/2020");
-        list.add("Reservation Id:- 2 Check-in Date:- 07/20/2020 Check-out Date:- 07/21/2020");
-        list.add("Reservation Id:- 3 Check-in Date:- 07/20/2020 Check-out Date:- 07/23/2020");
-        list.add("Reservation Id:- 4 Check-in Date:- 07/20/2020 Check-out Date:- 07/21/2020");
-        list.add("Reservation Id:- 5 Check-in Date:- 07/27/2020 Check-out Date:- 07/29/2020");
+        list.add("Reservation Id:- 1 Hotel Name:- Hotel Arlington Inn Check-in Date:- 07/18/2020 Check-out Date:- 07/20/2020");
+        list.add("Reservation Id:- 3 Hotel Name:- Hotel Bella Vista Inn Check-in Date:- 07/20/2020 Check-out Date:- 07/22/2020");
 
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,list);
@@ -45,7 +42,7 @@ public class ReservationListManager extends AppCompatActivity {
                 if(list.contains(query)){
                     adapter.getFilter().filter(query);
                 }else{
-                    Toast.makeText(ReservationListManager.this, "No Match found",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ViewMyReservations.this, "No Match found",Toast.LENGTH_LONG).show();
                 }
                 return false;
             }
@@ -56,17 +53,5 @@ public class ReservationListManager extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    public void nextPage(View view)
-    {
-        Intent intent = new Intent(this, com.example.HotelBookingSystem.SpecificReservationView.class);
-        startActivity(intent);
-    }
-
-    public void nextPage1(View view)
-    {
-        Intent intent = new Intent(this, com.example.HotelBookingSystem.ManagerHomeActivity.class);
-        startActivity(intent);
     }
 }

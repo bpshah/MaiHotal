@@ -1,8 +1,10 @@
-package com.example.HotelBookingSystem;
+package com.example.HotelBookingSystem.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.HotelBookingSystem.R;
 
 public class SpecificReservationView extends AppCompatActivity {
 

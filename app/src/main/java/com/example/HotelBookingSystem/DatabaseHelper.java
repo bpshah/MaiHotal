@@ -14,28 +14,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "HotelManagement.db";
     private static final int DATABASE_VERSION = 1;
     private final Context context;
-    SQLiteDatabase db;
+    private static SQLiteDatabase db;
 
     //private static final String DATABASE_PATH = "/Users/kavanmehta/AndroidStudioProjects/MaiHotal/app/src/main/assets/";
-    private final String USER_TABLE = "users";
+    private final String USER_TABLE = "user";
 
-    String createTableUser = "CREATE TABLE \\\"users\\\" (\\n\" +\n" +
-            "                \"\\t\\\"username\\\"\\tTEXT NOT NULL,\\n\" +\n" +
-            "                \"\\t\\\"password\\\"\\tTEXT NOT NULL,\\n\" +\n" +
-            "                \"\\t\\\"first_name\\\"\\tTEXT NOT NULL,\\n\" +\n" +
-            "                \"\\t\\\"last_name\\\"\\tTEXT,\\n\" +\n" +
-            "                \"\\t\\\"Phone\\\"\\tNUMERIC,\\n\" +\n" +
-            "                \"\\t\\\"email\\\"\\tTEXT UNIQUE,\\n\" +\n" +
-            "                \"\\t\\\"street_number\\\"\\tTEXT,\\n\" +\n" +
-            "                \"\\t\\\"street_name\\\"\\tTEXT,\\n\" +\n" +
-            "                \"\\t\\\"city\\\"\\tTEXT,\\n\" +\n" +
-            "                \"\\t\\\"state\\\"\\tTEXT,\\n\" +\n" +
-            "                \"\\t\\\"zip_code\\\"\\tNUMERIC,\\n\" +\n" +
-            "                \"\\t\\\"card_type\\\"\\tTEXT,\\n\" +\n" +
-            "                \"\\t\\\"card_number\\\"\\tNUMERIC,\\n\" +\n" +
-            "                \"\\t\\\"role\\\"\\tTEXT DEFAULT 'Guest',\\n\" +\n" +
-            "                \"\\tPRIMARY KEY(\\\"username\\\")\\n\" +\n" +
-            "                \");";
+    String createTableUser = "CREATE TABLE IF NOT EXISTS user ( username TEXT PRIMARY KEY," +
+            "password TEXT NOT NULL," +
+            "firstname TEXT NOT NULL," +
+            "lastname TEXT NOT NULL," +
+            "phone TEXT NOT NULL," +
+            "address TEXT NOT NULL," +
+            "email TEXT NOT NULL UNIQUE," +
+            "cardType TEXT NOT NULL," +
+            "cardNumber TEXT NOT NULL," +
+            "expiryDate TEXT NOT NULL,"+
+            "role NOT NULL)";
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -46,38 +40,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertUser(ContentValues contentValues)
     {
-        getWritableDatabase().insert("user","",contentValues);
+        getWritableDatabase().insert("user",null,contentValues);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE \"users\" (\n" +
-                "\t\"username\"\tTEXT NOT NULL,\n" +
-                "\t\"password\"\tTEXT NOT NULL,\n" +
-                "\t\"first_name\"\tTEXT NOT NULL,\n" +
-                "\t\"last_name\"\tTEXT,\n" +
-                "\t\"Phone\"\tNUMERIC,\n" +
-                "\t\"email\"\tTEXT UNIQUE,\n" +
-                "\t\"address\"\tTEXT,\n" +
-                "\t\"card_type\"\tTEXT,\n" +
-                "\t\"card_number\"\tNUMERIC,\n" +
-                "\t\"expiry_date\"\tTEXT NOT NULL,\n" +
-                "\t\"role\"\tTEXT DEFAULT 'Guest',\n" +
-                "\tPRIMARY KEY(\"username\")\n" +
-                ");");
-        db.execSQL("INSERT INTO users VALUES ('kavan','kavan123','Kavan','Mehta',6463311689,'kavanrd@gmail.com','417','Summit Ave','Arlington','Texas',76013,'Visa',1234567812345678,'Guest')");
-        db.execSQL("INSERT INTO users VALUES ('kavan1','kavan456','Kavan','Mehta',6463311689,'kavanre@gmail.com','417','Summit Ave','Arlington','Texas',76013,'Visa',1234567812345678,'Manager')");
-        db.execSQL("INSERT INTO users VALUES ('kavan2','kavan789','Kavan','Mehta',6463311689,'kavanrf@gmail.com','417','Summit Ave','Arlington','Texas',76013,'Visa',1234567812345678,'Admin')");
-
+        db.execSQL(createTableUser);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE if exists users");
+        db.execSQL("DROP TABLE if exists user");
         onCreate(db);
 
     }
-
 
     public boolean checkUserExist(String username, String password){
         //onUpgrade(db,1,1);
@@ -86,9 +62,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
         System.out.println("True: "+db.isOpen());
 
-        System.out.println("SELECT username,password FROM users WHERE username = '"+username+"' and password = '"+password+"'");
+        String sql = "SELECT username,password FROM user WHERE username = '"+username+"' and password = '"+password+"'";
 
-        Cursor cursor = db.rawQuery("SELECT * FROM users",null);
+        Cursor cursor = db.rawQuery(sql,null);
         cursor.moveToFirst();
         int count = cursor.getCount();
 
@@ -99,5 +75,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             return false;
         }
+    }
+
+    public Cursor login(String username,String password){
+        String query = "SELECT role FROM user WHERE username = '"+username+"'AND password = '"+password+"'";
+        return db.rawQuery(query,null);
     }
 }

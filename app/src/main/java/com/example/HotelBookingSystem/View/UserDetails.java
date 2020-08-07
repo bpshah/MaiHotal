@@ -1,4 +1,4 @@
-package com.example.HotelBookingSystem;
+package com.example.HotelBookingSystem.View;
 
 public class UserDetails {
 

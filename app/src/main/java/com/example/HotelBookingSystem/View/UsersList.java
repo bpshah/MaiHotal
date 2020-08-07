@@ -1,4 +1,4 @@
-package com.example.HotelBookingSystem;
+package com.example.HotelBookingSystem.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,13 +8,16 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.HotelBookingSystem.R;
+
 import java.util.ArrayList;
 
-public class ViewRoomsList extends AppCompatActivity {
+public class UsersList extends AppCompatActivity {
+
     SearchView searchView;
     ListView listView;
     ArrayList<String> list;
-    ArrayAdapter<String> adapter;
+    ArrayAdapter<String > adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +28,7 @@ public class ViewRoomsList extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.view_rooms);
 
         list = new ArrayList<>();
-        list.add("Hotel Arlington Inn Room Type:- Standard  Price:- $64.58 per night");
-        list.add("Hotel Arlington Inn Room Type:- Standard  Price:- $64.58 per night");
-        list.add("Hotel Bella vista Inn Room Type:- Standard  Price:- $69.58 per night");
-        list.add("Hotel Days Inn Room Type:- Standard  Price:- 69.58 per night");
-        list.add("Hotel Dallas Inn Room Type:- Standard  Price:- 75.58 per night");
+        list.add("Kavan Mehta");
 
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
@@ -42,7 +41,7 @@ public class ViewRoomsList extends AppCompatActivity {
                 if (list.contains(query)) {
                     adapter.getFilter().filter(query);
                 } else {
-                    Toast.makeText(ViewRoomsList.this, "No Match found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UsersList.this, "No Match found", Toast.LENGTH_LONG).show();
                 }
                 return false;
             }

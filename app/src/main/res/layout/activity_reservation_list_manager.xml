@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:onClick="nextPage"
-    tools:context="com.example.HotelBookingSystem.ReservationListManager">
+    tools:context="com.example.HotelBookingSystem.View.ReservationListManager">
 
     <ListView
         android:id="@+id/view_rooms"

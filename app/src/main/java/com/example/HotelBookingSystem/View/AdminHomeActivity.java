@@ -1,4 +1,4 @@
-package com.example.HotelBookingSystem;
+package com.example.HotelBookingSystem.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.HotelBookingSystem.MainActivity;
+import com.example.HotelBookingSystem.R;
 
 public class AdminHomeActivity extends AppCompatActivity {
 

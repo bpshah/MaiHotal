@@ -1,4 +1,4 @@
-package com.example.HotelBookingSystem;
+package com.example.HotelBookingSystem.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,12 +12,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.HotelBookingSystem.Controllers.LoginController;
+import com.example.HotelBookingSystem.R;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText username;
     EditText password;
     Button loginButton;
+    Button signupButton;
     Context contxt;
+    LoginController lgin = new LoginController();
     com.example.HotelBookingSystem.DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         username = (EditText) findViewById(R.id.editTextTextEmailAddress);
         password = (EditText)findViewById(R.id.editTextTextPassword);
         loginButton = (Button) findViewById(R.id.login);
+        signupButton = (Button) findViewById(R.id.signup);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -38,36 +44,16 @@ public class MainActivity extends AppCompatActivity {
                 final String _username_ = String.valueOf(username.getText());
                 final String _password_ = String.valueOf(password.getText());
 
-
-                String query = "SELECT role FROM users WHERE username = '"+_username_+"'AND password = '"+_password_+"'";
-                Cursor cursor = db1.rawQuery(query,null);
-                System.out.println(cursor.getCount());
-                if(cursor.getCount() > 0)
-                {
-                    cursor.moveToFirst();
-                    Intent intent;
-                    if(cursor.getString(cursor.getColumnIndexOrThrow("role")).equals("Guest")){
-                        intent = new Intent(MainActivity.this, com.example.HotelBookingSystem.UserHomeActivity.class);
-                    }
-                    else if(cursor.getString(cursor.getColumnIndexOrThrow("role")).equals("Manager")){
-                        intent = new Intent(MainActivity.this, com.example.HotelBookingSystem.ManagerHomeActivity.class);
-                    }
-                    else{
-                        intent = new Intent(MainActivity.this, com.example.HotelBookingSystem.AdminHomeActivity.class);
-                    }
-                    //Intent intent = new Intent(MainActivity.this, UserHomeActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    password.setText(null);
-                    Toast.makeText(MainActivity.this, "Login failed. Invalid username or password.", Toast.LENGTH_SHORT).show();
-                }
+            if(!lgin.login(_username_,_password_,contxt)){
+                password.setText(null);
+                Toast.makeText(contxt, "Login failed. Invalid username or password.", Toast.LENGTH_SHORT).show();
+            }
             }
         });
     }
 
     public void changePage(View view){
-        Intent intent = new Intent(this, com.example.HotelBookingSystem.FinalPayment.class);
+        Intent intent = new Intent(this, Registration.class);
         startActivity(intent);
     }
 }

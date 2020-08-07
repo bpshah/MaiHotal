@@ -1,8 +1,9 @@
-package com.example.HotelBookingSystem;
+package com.example.HotelBookingSystem.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.HotelBookingSystem.R;
+import com.example.HotelBookingSystem.Controllers.RegistrationController;
+
+import com.example.HotelBookingSystem.Controllers.RegistrationController;
 
 public class Registration extends AppCompatActivity {
 
@@ -26,6 +32,8 @@ public class Registration extends AppCompatActivity {
     EditText cardNumber;
     EditText expiryDate;
     Button register;
+    Context contxt;
+    RegistrationController cntrl = new RegistrationController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +53,12 @@ public class Registration extends AppCompatActivity {
         expiryDate = findViewById(R.id.expirydate);
         register = findViewById(R.id.register);
 
+        contxt = this;
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkDataEntered();
+                //checkDataEntered();
                 String usernameValue = userName.getText().toString();
                 String passwordValue = password.getText().toString();
                 String firstNameValue = firstName.getText().toString();
@@ -60,17 +70,21 @@ public class Registration extends AppCompatActivity {
                 String cardNumberValue = cardNumber.getText().toString();
                 String expiryDateValue = expiryDate.getText().toString();
 
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("username",usernameValue);
-                contentValues.put("password",passwordValue);
-                contentValues.put("first_name",firstNameValue);
-                contentValues.put("last_name",lastNameValue);
-                contentValues.put("Phone",phoneValue);
-                contentValues.put("email",emailValue);
-                contentValues.put("address",addressValue);
-                contentValues.put("card_type",cardTypeValue);
-                contentValues.put("card_number",cardNumberValue);
-                contentValues.put("expiry_date",expiryDateValue);
+                // call register from registration controller
+                cntrl.register(usernameValue,passwordValue,firstNameValue,lastNameValue,phoneValue,addressValue,
+                        emailValue,cardTypeValue,cardNumberValue,expiryDateValue,contxt);
+
+//                ContentValues contentValues = new ContentValues();
+//                contentValues.put("username",usernameValue);
+//                contentValues.put("password",passwordValue);
+//                contentValues.put("first_name",firstNameValue);
+//                contentValues.put("last_name",lastNameValue);
+//                contentValues.put("Phone",phoneValue);
+//                contentValues.put("email",emailValue);
+//                contentValues.put("address",addressValue);
+//                contentValues.put("card_type",cardTypeValue);
+//                contentValues.put("card_number",cardNumberValue);
+//                contentValues.put("expiry_date",expiryDateValue);
 
             }
         });
@@ -159,7 +173,7 @@ public class Registration extends AppCompatActivity {
     }
     public void backToHomePage(View view)
     {
-        Intent intent = new Intent(this, com.example.HotelBookingSystem.MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         Toast.makeText(this, "Registered Successfully!!.", Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }

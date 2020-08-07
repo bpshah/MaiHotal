@@ -1,10 +1,12 @@
-package com.example.HotelBookingSystem;
+package com.example.HotelBookingSystem.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.HotelBookingSystem.R;
 
 public class ManagerHomeActivity extends AppCompatActivity {
 
@@ -16,19 +18,19 @@ public class ManagerHomeActivity extends AppCompatActivity {
 
     public void nextPage(View view)
     {
-        Intent intent = new Intent(this, com.example.HotelBookingSystem.ReservationListManager.class);
+        Intent intent = new Intent(this, ReservationListManager.class);
         startActivity(intent);
     }
 
     public void nextPage1(View view)
     {
-        Intent intent = new Intent(this, com.example.HotelBookingSystem.ViewProfile.class);
+        Intent intent = new Intent(this, ViewProfile.class);
         startActivity(intent);
     }
 
     public void logout(View view)
     {
-        Intent intent = new Intent(this, com.example.HotelBookingSystem.MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
