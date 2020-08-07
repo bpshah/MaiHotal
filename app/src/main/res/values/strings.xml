@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Hotel Booking Application</string>
+    <string name="email">Enter your Email</string>
+    <string name="password">Enter your Password</string>
+    <string name="login">Sign In</string>
+    <string name="register">Sign Up!</string>
+    <string name="logout">Logout</string>
+    <string name="profile">View Profile</string>
+    <string name="search_rooms">Search for Rooms</string>
+    <string name="view_my_reservations">View My Reservations</string>
+    <string name="view_available_rooms">View Available Rooms</string>
+    <string name="search_users">Searach Users</string>
+    <string name="request_reservation">Request for Reservation</string>
+    <string name="view_reservations">View Reservations</string>
+    <string name="username">Enter your Username</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="first_name">Enter your First Name</string>
+    <string name="last_name">Enter your Last Name</string>
+    <string name="Phone">Enter your Phone Number</string>
+    <string name="street_number">Enter your Address</string>
+    <string name="street_name">Enter your Street Name</string>
+    <string name="city">Enter your City</string>
+    <string name="state">Enter your State</string>
+    <string name="zipcode">Enter your Zipcode</string>
+    <string name="card_type">Enter your Card Type</string>
+    <string name="card_number">Enter your Card Number</string>
+    <string name="expiry_date">Enter your Expiry Date</string>
+</resources>
