@@ -29,7 +29,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "cardType TEXT NOT NULL," +
             "cardNumber TEXT NOT NULL," +
             "expiryDate TEXT NOT NULL,"+
-            "role NOT NULL)";
+            "role TEXT NOT NULL)";
+    String addManager = "insert into user( username,password,firstname,lastname,phone,address,email,cardType,cardNumber,expiryDate,role) values " +
+            "('SammyJ','Password12$','Sam','Johnson','8177772000','1234 Anywhere Ln. Arlington TX 76019','sammyj@mavs.uta.edu','Discover','1234567812345677','04/24','HotelManager')";
+    String addAdmin = "insert into user( username,password,firstname,lastname,phone,address,email,cardType,cardNumber,expiryDate,role) values" +
+            " ('SuzieQ','Password$34','Susan','Queen','8177772345','5678 Straight Dr. Arlington TX 76019','SuzieQ@mavs.uta.edu','Discover','1234567812345678','04/24','Admin')";
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -46,6 +50,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(createTableUser);
+        db.execSQL(addManager);
+        db.execSQL(addAdmin);
     }
 
     @Override
@@ -79,6 +85,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor login(String username,String password){
         String query = "SELECT role FROM user WHERE username = '"+username+"'AND password = '"+password+"'";
+        return db.rawQuery(query,null);
+    }
+
+    public Cursor searchUser(String lastname){
+        String query = "select * from user where lastname = '"+lastname+"'";
         return db.rawQuery(query,null);
     }
 }

@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.HotelBookingSystem.Models.User;
 import com.example.HotelBookingSystem.R;
 
 import java.util.ArrayList;
@@ -22,35 +23,33 @@ public class UsersList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservation_list_manager);
+        setContentView(R.layout.activity_users_list);
 
         searchView = (SearchView) findViewById(R.id.searchView);
-        listView = (ListView) findViewById(R.id.view_rooms);
+        listView = (ListView) findViewById(R.id.view_users);
 
-        list = new ArrayList<>();
-        list.add("Kavan Mehta");
-
-
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+        ArrayList<String> myList = (ArrayList<String>) getIntent().getSerializableExtra("fnamelist");
+        System.out.println(myList);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myList);
         listView.setAdapter(adapter);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                if (list.contains(query)) {
-                    adapter.getFilter().filter(query);
-                } else {
-                    Toast.makeText(UsersList.this, "No Match found", Toast.LENGTH_LONG).show();
-                }
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//
+//                if (list.contains(query)) {
+//                    adapter.getFilter().filter(query);
+//                } else {
+//                    Toast.makeText(UsersList.this, "No Match found", Toast.LENGTH_LONG).show();
+//                }
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                adapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
     }
 }

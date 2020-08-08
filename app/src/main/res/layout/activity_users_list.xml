@@ -7,7 +7,7 @@
     tools:context="com.example.HotelBookingSystem.View.UsersList">
 
     <ListView
-        android:id="@+id/view_rooms"
+        android:id="@+id/view_users"
         android:layout_width="match_parent"
         android:layout_height="585dp"
         android:layout_alignParentTop="true"
@@ -16,6 +16,7 @@
         android:layout_marginBottom="93dp"
         android:divider="#ad5"
         android:dividerHeight="2dp"
-        tools:ignore="MissingConstraints"></ListView>
+        tools:ignore="MissingConstraints">
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
