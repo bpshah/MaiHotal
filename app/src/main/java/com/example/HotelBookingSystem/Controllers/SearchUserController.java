@@ -15,14 +15,11 @@ import java.util.ArrayList;
 public class SearchUserController {
     DatabaseHelper db;
     User user;
-    public void searchUser(String lastname, Context c){
+    public ArrayList<User> searchUser(String lastname, Context c){
         db = new DatabaseHelper(c);
         Intent intent;
         Cursor cursor = db.searchUser(lastname);
         ArrayList<User> userList = new ArrayList<User>();
-        ArrayList<String> firstNameList = new ArrayList<String>();
-        ArrayList<String> LastNameList = new ArrayList<String>();
-        ArrayList<String> NameList = new ArrayList<String>();
         if(cursor.getCount() > 0){
             while(cursor.moveToNext()){
                 user = new User();
@@ -34,19 +31,13 @@ public class SearchUserController {
                 user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("email")));
                 user.setRole(cursor.getString(cursor.getColumnIndexOrThrow("role")));
                 userList.add(user);
-                firstNameList.add(user.getFirstname());
             };
-            System.out.println(firstNameList);
+            System.out.println(userList);
 
-            // display result
-            intent = new Intent(c.getApplicationContext(), UsersList.class);
-            //intent.putExtra("userlist", userList);
-            intent.putExtra("fnamelist", firstNameList);
-            c.startActivity(intent);
+            return userList;
         }
         else{
-            Toast t = Toast.makeText(c,"No user found with this lastname",Toast.LENGTH_SHORT);
-            t.show();
+            return null;
         }
         //call searchUser DBHelper
     }

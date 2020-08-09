@@ -2,54 +2,73 @@ package com.example.HotelBookingSystem.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.example.HotelBookingSystem.Models.User;
 import com.example.HotelBookingSystem.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
+import static com.example.HotelBookingSystem.R.id.view_users;
 
 public class UsersList extends AppCompatActivity {
 
     SearchView searchView;
     ListView listView;
-    ArrayList<String> list;
-    ArrayAdapter<String > adapter;
+    ArrayList<User> myListItems;
+    ArrayList<HashMap<String,String>> list;
+    SimpleAdapter sa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_users_list);
+        setContentView(R.layout.userlist);
+        list = new ArrayList<>();
+        myListItems = (ArrayList<User>) getIntent().getSerializableExtra("usrList");
+        listView = (ListView)findViewById(view_users);
+       for(int i = 0;i<myListItems.size();i++){
+           HashMap item = new HashMap<String,String>();
+           item.put("firstname",myListItems.get(i).getFirstname());
+           item.put("lastname",myListItems.get(i).getLastname());
+           item.put("username",myListItems.get(i).getUsername());
+           list.add(item);
+       }
+        sa = new SimpleAdapter(this, list,
+                R.layout.activity_users_list,
+                new String[] { "firstname","lastname", "username" },
+                new int[] {R.id.line_a, R.id.line_b, R.id.line_c});
+       listView.setAdapter(sa);
+       listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
-        searchView = (SearchView) findViewById(R.id.searchView);
-        listView = (ListView) findViewById(R.id.view_users);
+       public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
+       {
 
-        ArrayList<String> myList = (ArrayList<String>) getIntent().getSerializableExtra("fnamelist");
-        System.out.println(myList);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myList);
-        listView.setAdapter(adapter);
+           Intent n = new Intent(getApplicationContext(), ViewProfile.class);
+           n.putExtra("firstname", myListItems.get(position).getFirstname());
+           n.putExtra("lastname", myListItems.get(position).getLastname());
+           n.putExtra("username", myListItems.get(position).getUsername());
+           n.putExtra("phone", myListItems.get(position).getPhone());
+           n.putExtra("address", myListItems.get(position).getAddress());
+           n.putExtra("email", myListItems.get(position).getEmail());
+           n.putExtra("role", myListItems.get(position).getRole());
+           //create xml for view admin profile with update buttuon and delete button
+           //implement update profile and delete profile
+           //refresh User function on userslist screen for update and delete
+           startActivity(n);
+       }
 
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//
-//                if (list.contains(query)) {
-//                    adapter.getFilter().filter(query);
-//                } else {
-//                    Toast.makeText(UsersList.this, "No Match found", Toast.LENGTH_LONG).show();
-//                }
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                adapter.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
-    }
+    });
+}
 }
