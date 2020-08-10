@@ -26,14 +26,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "phone TEXT NOT NULL," +
             "address TEXT NOT NULL," +
             "email TEXT NOT NULL UNIQUE," +
-            "cardType TEXT NOT NULL," +
-            "cardNumber TEXT NOT NULL," +
-            "expiryDate TEXT NOT NULL,"+
+            "cardType TEXT," +
+            "cardNumber TEXT," +
+            "expiryDate TEXT,"+
             "role TEXT NOT NULL)";
     String addManager = "insert into user( username,password,firstname,lastname,phone,address,email,cardType,cardNumber,expiryDate,role) values " +
-            "('SammyJ','Password12$','Sam','Johnson','8177772000','1234 Anywhere Ln. Arlington TX 76019','sammyj@mavs.uta.edu','Discover','1234567812345677','04/24','HotelManager')";
+            "('SammyJ','Password12$','Sam','Johnson','8177772000','1234 Anywhere Ln. Arlington TX 76019','sammyj@mavs.uta.edu','','','','HotelManager')";
     String addAdmin = "insert into user( username,password,firstname,lastname,phone,address,email,cardType,cardNumber,expiryDate,role) values" +
-            " ('SuzieQ','Password$34','Susan','Queen','8177772345','5678 Straight Dr. Arlington TX 76019','SuzieQ@mavs.uta.edu','Discover','1234567812345678','04/24','Admin')";
+            " ('SuzieQ','Password$34','Susan','Queen','8177772345','5678 Straight Dr. Arlington TX 76019','SuzieQ@mavs.uta.edu','','','','Admin')";
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -105,4 +105,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
         return true;
     }
+
+    public Cursor getProfile(String username){
+        String query = "select * from user where username ='"+username+"'";
+        System.out.println("Query: "+query);
+        return db.rawQuery(query,null);
+    }
+
+    public boolean updateProfile(String fname,String lname,String email,String phone,String addr,String uname,
+                                 String ccnum,String cctype,String ccdate,String pwd){
+        String query = "Update user set firstname = '"+fname+"', lastname = '"+lname+"', phone = '"+phone+"', address = '"+addr+
+                "', email = '"+email+"',password = '"+pwd+"', cardNumber = '"+ccnum+"',cardType = '"+cctype+"',expiryDate = '"+ccdate+"'" +
+                " where username = '"+uname+"';";
+        db.execSQL(query);
+        return true;
+    }
+
 }

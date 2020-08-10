@@ -25,6 +25,8 @@ public class ManagerHomeActivity extends AppCompatActivity {
     public void nextPage1(View view)
     {
         Intent intent = new Intent(this, ViewProfile.class);
+        String username = getIntent().getStringExtra("uniquename");
+        intent.putExtra("userID",username);
         startActivity(intent);
     }
 

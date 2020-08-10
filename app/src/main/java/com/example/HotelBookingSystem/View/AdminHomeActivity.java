@@ -28,4 +28,11 @@ public class AdminHomeActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void viewProfile(View view){
+        Intent intent = new Intent(this,ViewProfile.class);
+        String username = getIntent().getStringExtra("uniquename");
+        intent.putExtra("userID",username);
+        startActivity(intent);
+    }
 }

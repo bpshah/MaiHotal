@@ -19,7 +19,9 @@ public class UserHomeActivity extends AppCompatActivity {
 
     public void nextPage(View view)
     {
-        Intent intent = new Intent(this, UpdateProfile.class);
+        Intent intent = new Intent(this, ViewProfile.class);
+        String username = getIntent().getStringExtra("uniquename");
+        intent.putExtra("userID",username);
         startActivity(intent);
     }
 

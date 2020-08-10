@@ -23,12 +23,15 @@ public class LoginController {
             Intent intent;
             if(cursor.getString(cursor.getColumnIndexOrThrow("role")).equals("Guest")){
                 intent = new Intent(c.getApplicationContext(), UserHomeActivity.class);
+                intent.putExtra("uniquename",username);
             }
             else if(cursor.getString(cursor.getColumnIndexOrThrow("role")).equals("HotelManager")){
                 intent = new Intent(c.getApplicationContext(), ManagerHomeActivity.class);
+                intent.putExtra("uniquename",username);
             }
             else{
                 intent = new Intent(c.getApplicationContext(), AdminHomeActivity.class);
+                intent.putExtra("uniquename",username);
             }
             //Intent intent = new Intent(MainActivity.this, UserHomeActivity.class);
             c.startActivity(intent);
