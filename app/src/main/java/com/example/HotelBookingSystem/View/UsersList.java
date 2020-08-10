@@ -2,6 +2,7 @@ package com.example.HotelBookingSystem.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +27,8 @@ import static com.example.HotelBookingSystem.R.id.view_users;
 public class UsersList extends AppCompatActivity {
 
     SearchView searchView;
+    Intent intent;
+    Context contxt;
     ListView listView;
     ArrayList<User> myListItems;
     ArrayList<HashMap<String,String>> list;
@@ -35,6 +38,7 @@ public class UsersList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userlist);
+        contxt = this;
         list = new ArrayList<>();
         myListItems = (ArrayList<User>) getIntent().getSerializableExtra("usrList");
         listView = (ListView)findViewById(view_users);
@@ -55,7 +59,7 @@ public class UsersList extends AppCompatActivity {
        public void onItemClick(AdapterView<?> arg0,View arg1, int position, long arg3)
        {
 
-           Intent n = new Intent(getApplicationContext(), ViewProfile.class);
+           Intent n = new Intent(getApplicationContext(), UpdateProfile.class);
            n.putExtra("firstname", myListItems.get(position).getFirstname());
            n.putExtra("lastname", myListItems.get(position).getLastname());
            n.putExtra("username", myListItems.get(position).getUsername());
@@ -71,4 +75,17 @@ public class UsersList extends AppCompatActivity {
 
     });
 }
+    public void home(View view){
+        intent = new Intent(this, AdminHomeActivity.class);
+        contxt.startActivity(intent);
+
+    }
+
+    public void logout(View view)
+    {
+        intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

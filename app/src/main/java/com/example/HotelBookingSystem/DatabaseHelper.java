@@ -92,4 +92,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "select * from user where lastname = '"+lastname+"'";
         return db.rawQuery(query,null);
     }
+
+    public boolean updateProfileAdmin(String fname,String lname,String email,String phone,String addr,String uname){
+        String query = "Update user set firstname = '"+fname+"', lastname = '"+lname+"', phone = '"+phone+"', address = '"+addr+
+                "', email = '"+email+"' where username = '"+uname+"';";
+        db.execSQL(query);
+        return true;
+    }
+
+    public boolean deleteProfileAdmin(String uname){
+        String query = "delete from user where username= '"+uname+"'";
+        db.execSQL(query);
+        return true;
+    }
 }

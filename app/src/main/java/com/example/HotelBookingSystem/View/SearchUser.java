@@ -53,4 +53,18 @@ public class SearchUser extends AppCompatActivity {
         }
 
     }
+
+    public void home(View view){
+        intent = new Intent(this, AdminHomeActivity.class);
+        contxt.startActivity(intent);
+
+    }
+
+    public void logout(View view)
+    {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
