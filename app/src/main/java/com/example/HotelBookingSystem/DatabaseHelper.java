@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "cardNumber TEXT," +
             "expiryDate TEXT,"+
             "role TEXT NOT NULL)";
-    //Room table created successfully
+
     String createTableRoom = "CREATE TABLE IF NOT EXISTS room ( roomno INT NOT NULL," +
             "roomprice DOUBLE NOT NULL," +
             "roomweekendprice DOUBLE NOT NULL," +
