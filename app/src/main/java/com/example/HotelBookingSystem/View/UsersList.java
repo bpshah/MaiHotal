@@ -67,9 +67,6 @@ public class UsersList extends AppCompatActivity {
            n.putExtra("address", myListItems.get(position).getAddress());
            n.putExtra("email", myListItems.get(position).getEmail());
            n.putExtra("role", myListItems.get(position).getRole());
-           //create xml for view admin profile with update buttuon and delete button
-           //implement update profile and delete profile
-           //refresh User function on userslist screen for update and delete
            startActivity(n);
        }
 

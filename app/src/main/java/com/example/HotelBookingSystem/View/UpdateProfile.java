@@ -76,9 +76,6 @@ public class UpdateProfile extends AppCompatActivity {
             startActivity(intent);
 
         }
-//        Intent intent = new Intent(this, UpdateProfile.class);
-//        Toast.makeText(this, "Profile Updated!", Toast.LENGTH_SHORT).show();
-//        startActivity(intent);
     }
 
     public void deleteUser(View view)

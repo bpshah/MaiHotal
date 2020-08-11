@@ -89,7 +89,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor searchUser(String lastname){
-        String query = "select * from user where lastname = '"+lastname+"'";
+        String query = "select * from user where lastname = '"+lastname+"' and role='Guest' and role='HotelManager'";
         return db.rawQuery(query,null);
     }
 
