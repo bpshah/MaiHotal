@@ -18,6 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //private static final String DATABASE_PATH = "/Users/kavanmehta/AndroidStudioProjects/MaiHotal/app/src/main/assets/";
     private final String USER_TABLE = "user";
+    private final String ROOM_TABLE = "room";
 
     String createTableUser = "CREATE TABLE IF NOT EXISTS user ( username TEXT PRIMARY KEY," +
             "password TEXT NOT NULL," +
@@ -30,6 +31,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "cardNumber TEXT," +
             "expiryDate TEXT,"+
             "role TEXT NOT NULL)";
+    //Room table created
+    String createTableRoom = "CREATE TABLE IF NOT EXISTS room ( roomno INT NOT NULL," +
+            "roomprice DOUBLE NOT NULL," +
+            "roomweekendprice DOUBLE NOT NULL," +
+            "roomstatus TEXT NOT NULL," +
+            "roomtype TEXT NOT NULL," +
+            "hotel TEXT NOT NULL)";
+
     String addManager = "insert into user( username,password,firstname,lastname,phone,address,email,cardType,cardNumber,expiryDate,role) values " +
             "('SammyJ','Password12$','Sam','Johnson','8177772000','1234 Anywhere Ln. Arlington TX 76019','sammyj@mavs.uta.edu','','','','HotelManager')";
     String addAdmin = "insert into user( username,password,firstname,lastname,phone,address,email,cardType,cardNumber,expiryDate,role) values" +
@@ -52,11 +61,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createTableUser);
         db.execSQL(addManager);
         db.execSQL(addAdmin);
+        db.execSQL(createTableRoom);
+        int i=1;
+        for(i=1;i<101;i++) {
+            if(i < 89) {
+                String addRoom1 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",100,150,'Available','Standard','Maverick')";
+                String addRoom2 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",100,150,'Available','Standard','Ranger')";
+                String addRoom3 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",100,150,'Available','Standard','Williams')";
+                String addRoom4 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",100,150,'Available','Standard','Shard')";
+                String addRoom5 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",100,150,'Available','Standard','Liberty')";
+                db.execSQL(addRoom1);
+                db.execSQL(addRoom2);
+                db.execSQL(addRoom3);
+                db.execSQL(addRoom4);
+                db.execSQL(addRoom5);
+            }
+            else if(i<97) {
+                String addRoom1 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",135,185,'Available','Deluxe','Maverick')";
+                String addRoom2 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",135,185,'Available','Deluxe','Ranger')";
+                String addRoom3 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",135,185,'Available','Deluxe','Williams')";
+                String addRoom4 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",135,185,'Available','Deluxe','Shard')";
+                String addRoom5 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",135,185,'Available','Deluxe','Liberty')";
+                db.execSQL(addRoom1);
+                db.execSQL(addRoom2);
+                db.execSQL(addRoom3);
+                db.execSQL(addRoom4);
+                db.execSQL(addRoom5);
+            }
+            else{
+                String addRoom1 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",225,275,'Available','Suite','Maverick')";
+                String addRoom2 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",225,275,'Available','Suite','Ranger')";
+                String addRoom3 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",225,275,'Available','Suite','Williams')";
+                String addRoom4 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",225,275,'Available','Suite','Shard')";
+                String addRoom5 = "insert into room(roomno,roomprice,roomweekendprice,roomstatus,roomtype,hotel) values("+i+",225,275,'Available','Suite','Liberty')";
+                db.execSQL(addRoom1);
+                db.execSQL(addRoom2);
+                db.execSQL(addRoom3);
+                db.execSQL(addRoom4);
+                db.execSQL(addRoom5);
+            }
+        }
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE if exists user");
+        db.execSQL("DROP TABLE IF EXISTS room");
         onCreate(db);
 
     }
