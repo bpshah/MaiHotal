@@ -38,6 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "roomstatus TEXT NOT NULL," +
             "roomtype TEXT NOT NULL," +
             "hotel TEXT NOT NULL)";
+
     String addManager = "insert into user( username,password,firstname,lastname,phone,address,email,cardType,cardNumber,expiryDate,role) values " +
             "('SammyJ','Password12$','Sam','Johnson','8177772000','1234 Anywhere Ln. Arlington TX 76019','sammyj@mavs.uta.edu','','','','HotelManager')";
     String addAdmin = "insert into user( username,password,firstname,lastname,phone,address,email,cardType,cardNumber,expiryDate,role) values" +
