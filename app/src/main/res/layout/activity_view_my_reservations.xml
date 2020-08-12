@@ -7,7 +7,7 @@
     tools:context=".View.ViewMyReservations">
 
     <ListView
-        android:id="@+id/view_rooms"
+        android:id="@+id/view_reservations"
         android:layout_width="411dp"
         android:layout_height="553dp"
         android:layout_below="@+id/searchView"

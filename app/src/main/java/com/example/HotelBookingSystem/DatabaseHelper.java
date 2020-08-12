@@ -39,6 +39,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "roomtype TEXT NOT NULL," +
             "hotel TEXT NOT NULL)";
 
+    String createTableReservation = "CREATE TABLE IF NOT EXISTS reserve ( reserveid INT PRIMARY KEY," +
+            "username TEXT NOT NULL," +
+            "checkindate DATE NOT NULL," +
+            "checkoutdate DATE NOT NULL," +
+            "days INT NOT NULL," +
+            "roomtype TEXT NOT NULL," +
+            "noofroom INT NOT NULL, " +
+            "bookingdate DATE NOT NULL," +
+            "adults INT NOT NULL," +
+            "children INT NOT NULL," +
+            "hotel TEXT NOT NULL," +
+            "cost DOUBLE NOT NULL)";
+
     String addManager = "insert into user( username,password,firstname,lastname,phone,address,email,cardType,cardNumber,expiryDate,role) values " +
             "('SammyJ','Password12$','Sam','Johnson','8177772000','1234 Anywhere Ln. Arlington TX 76019','sammyj@mavs.uta.edu','','','','HotelManager')";
     String addAdmin = "insert into user( username,password,firstname,lastname,phone,address,email,cardType,cardNumber,expiryDate,role) values" +
@@ -62,6 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(addManager);
         db.execSQL(addAdmin);
         db.execSQL(createTableRoom);
+        db.execSQL(createTableReservation);
         int i=1;
         for(i=1;i<101;i++) {
             if(i < 89) {
@@ -184,6 +198,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ", roomstatus = '"+avail+"' where hotel = '"+hotel+"' and roomno = "+roomno;
         db.execSQL(query);
         return true;
+    }
+
+    public Cursor searchreservation(String date,String username){
+        String query = "select * from reserve where date(checkindate) >= date('"+date+"') and username = '"+username+"'";
+        System.out.println(query);
+        return db.rawQuery(query,null);
     }
 
 }

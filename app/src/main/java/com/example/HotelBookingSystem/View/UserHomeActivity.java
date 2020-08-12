@@ -27,7 +27,9 @@ public class UserHomeActivity extends AppCompatActivity {
 
     public void nextPage1(View view)
     {
-        Intent intent = new Intent(this, ViewMyReservations.class);
+        Intent intent = new Intent(this, SearchReservation.class);
+        String username = getIntent().getStringExtra("uniquename");
+        intent.putExtra("userID",username);
         startActivity(intent);
     }
 
