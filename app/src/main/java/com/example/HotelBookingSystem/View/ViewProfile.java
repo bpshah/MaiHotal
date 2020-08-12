@@ -58,6 +58,8 @@ public class ViewProfile extends AppCompatActivity {
         System.out.println("True:"+cursor.moveToFirst());
         cursor.moveToFirst();
 
+        Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_LONG).show();
+
         uname = (TextView)findViewById(R.id.textView17);
         uname.setText(cursor.getString(cursor.getColumnIndexOrThrow("username")));
         uname_ = cursor.getString(cursor.getColumnIndexOrThrow("username"));

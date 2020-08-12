@@ -14,6 +14,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".View.UsersList"></activity>
         <activity android:name=".View.SearchUser" />
+        <activity android:name=".View.SearchforRooms" />
+        <activity android:name=".View.ViewRoomDetails" />
         <activity android:name=".View.UpdateUserSpecificReservation" />
         <activity android:name=".View.UserSpecificReservation" />
         <activity android:name=".View.SummaryView" />

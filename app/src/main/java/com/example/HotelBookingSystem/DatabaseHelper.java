@@ -174,4 +174,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public Cursor searchforroom(String roomno,String hotelName){
+        String query = "select * from room where roomno ='"+roomno+"' and hotel = '"+hotelName+"'";
+        return db.rawQuery(query,null);
+    }
+
+    public boolean saveRoom(String rtype, double weekdayprice, double weekendprice, String avail, String hotel, int roomno){
+        String query = "update room set roomtype= '"+rtype+"', roomprice = "+weekdayprice+", roomweekendprice ="+weekendprice+
+                ", roomstatus = '"+avail+"' where hotel = '"+hotel+"' and roomno = "+roomno;
+        db.execSQL(query);
+        return true;
+    }
+
 }

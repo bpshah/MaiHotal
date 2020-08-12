@@ -31,7 +31,7 @@
         <schema name="main" object-types="view, table" />
       </connection>
       <connection connection-id="7a00f68f-0a06-4b04-ba73-bd4785e35b49">
-        <schema name="main" object-types="constraint, view, column, dataset trigger, index, table" />
+        <schema name="main" object-types="view, table" />
       </connection>
     </loaded-nodes>
   </component>

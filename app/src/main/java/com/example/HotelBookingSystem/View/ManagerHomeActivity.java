@@ -30,6 +30,13 @@ public class ManagerHomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void nextPage2(View view)
+    {
+        Intent intent = new Intent(this, SearchforRooms.class);
+        startActivity(intent);
+    }
+
+
     public void logout(View view)
     {
         Intent intent = new Intent(this, MainActivity.class);
