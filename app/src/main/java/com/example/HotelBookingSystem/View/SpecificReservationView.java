@@ -1,14 +1,21 @@
 package com.example.HotelBookingSystem.View;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.HotelBookingSystem.Controllers.ModifyReservationContoller;
 import com.example.HotelBookingSystem.R;
+
+import java.text.ParseException;
 
 public class SpecificReservationView extends AppCompatActivity {
 
@@ -57,10 +64,86 @@ public class SpecificReservationView extends AppCompatActivity {
 
     }
     public void deletereservation(View view){
+        final ModifyReservationContoller cntrl = new ModifyReservationContoller();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirmation !");
+        builder.setMessage("Do you want to cancel the reservation?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(cntrl.deleteReservation(Integer.parseInt(id.getText().toString()),contxt)){
+                    Intent intent = new Intent(getApplicationContext(), SearchReservation.class);
+                    Toast.makeText(getApplicationContext(), "Reservation Canceled!", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(getApplicationContext(), SpecificReservationView.class);
+                    Toast.makeText(getApplicationContext(), "Unable to cancel reservation.", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        builder.show();
 
     }
 
     public void modifyreservation(View view){
+
+        final ModifyReservationContoller cntrl = new ModifyReservationContoller();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirmation !");
+        builder.setMessage("Do you want to update the reservation?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                try {
+                    if(cntrl.modifyreservation(checkindate.getText().toString(),checkoutdate.getText().toString(),roomtype.getText().toString(),
+                            Integer.parseInt(adults.getText().toString()),Integer.parseInt(adults.getText().toString()),
+                            Integer.parseInt(rooms.getText().toString()),
+                            Integer.parseInt(id.getText().toString()),contxt)){
+                        price.setText((String)(cntrl.getPrice()));
+                        Intent intent = new Intent(getApplicationContext(), SearchReservation.class);
+                        Toast.makeText(getApplicationContext(), "Reservation Updated!", Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(getApplicationContext(), SpecificReservationView.class);
+                        Toast.makeText(getApplicationContext(), "Unable to Update Reservation.", Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                id.setText((String)(getIntent().getSerializableExtra("id").toString()));
+                hotelname.setText((String)getIntent().getSerializableExtra("HotelName"));
+                bookingdate.setText((String)getIntent().getSerializableExtra("bookingdate"));
+                price.setText((String)(getIntent().getSerializableExtra("price").toString()));
+                checkindate.setText((String)getIntent().getSerializableExtra("checkindate"));
+                checkoutdate.setText((String)getIntent().getSerializableExtra("checkoutdate"));
+                roomtype.setText((String)getIntent().getSerializableExtra("roomtype"));
+                adults.setText((String)(getIntent().getSerializableExtra("adult").toString()));
+                children.setText((String)(getIntent().getSerializableExtra("children").toString()));
+                rooms.setText((String)(getIntent().getSerializableExtra("noofrooms").toString()));
+            }
+        });
+
+        builder.show();
 
     }
 

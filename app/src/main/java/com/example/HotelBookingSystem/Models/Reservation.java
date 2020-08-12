@@ -1,7 +1,12 @@
 package com.example.HotelBookingSystem.Models;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class Reservation implements Serializable {
 
@@ -114,6 +119,57 @@ public class Reservation implements Serializable {
     private int children;
     private String hotel;
     private double cost;
+
+    public double calculateCost(String checkindate,String checkoutdate,String roomtype,int noofroom) throws ParseException {
+        double cost = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+
+        Date firstDate = (Date) sdf.parse(checkindate);
+        Date secondDate = (Date) sdf.parse(checkoutdate);
+
+        long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+        long days = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+        Calendar startCal = Calendar.getInstance();
+        startCal.setTime(firstDate);
+
+        Calendar endCal = Calendar.getInstance();
+        endCal.setTime(secondDate);
+
+        int workDays = 0;
+        do {
+            //excluding start date
+            startCal.add(Calendar.DAY_OF_MONTH, 1);
+            if (startCal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && startCal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+                ++workDays;
+            }
+        } while (startCal.getTimeInMillis() < endCal.getTimeInMillis());
+
+        long weekenddays = days-workDays;
+
+        if(roomtype.equals("Standard")){
+            cost = (workDays*100 + weekenddays*150)*noofroom + (workDays*100 + weekenddays*150)*noofroom*0.0825;
+        }
+        else if(roomtype.equals("Deluxe")){
+            cost = (workDays*135 + weekenddays*185)*noofroom + (workDays*135 + weekenddays*185)*noofroom*0.0825;
+        }
+        else if(roomtype.equals("Suite")){
+            cost = (workDays*225 + weekenddays*275)*noofroom + (workDays*225 + weekenddays*275)*noofroom*0.0825;
+        }
+
+        return cost;
+    }
+
+    public long nooofdays(String checkoutdate,String checkindate) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+
+        Date firstDate = (Date) sdf.parse(checkindate);
+        Date secondDate = (Date) sdf.parse(checkoutdate);
+
+        long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+        long days = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        return days;
+    }
 
 
 }

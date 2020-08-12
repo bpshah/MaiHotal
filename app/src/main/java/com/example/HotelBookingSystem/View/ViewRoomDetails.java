@@ -97,7 +97,6 @@ public class ViewRoomDetails extends Activity {
                 rno.setText((String)(getIntent().getSerializableExtra("roomnumber")).toString());
             }
         });
-
         builder.show();
 
     }

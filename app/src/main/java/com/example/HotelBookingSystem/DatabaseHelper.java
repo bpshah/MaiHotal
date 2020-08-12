@@ -206,4 +206,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery(query,null);
     }
 
+    public boolean modifyreservation(String checkindate,String checkoutdate,String roomtype,int adults,int children,int noofrooms,double price,int id,long days){
+        String query = "update reserve set checkindate = '"+checkindate+"', checkoutdate = '"+checkoutdate+"', roomtype = '"+roomtype+
+                "', adults = '"+adults+"', children = '"+children+"', noofroom = '"+noofrooms+"', cost = '"+price+"', days = '"+days+
+                "' where reserveid = "+id;
+        db.execSQL(query);
+        return  true;
+    }
+
+    public boolean deletereservation(int id){
+        String query = "delete from reserve where reserveid = "+id;
+        db.execSQL(query);
+        return true;
+    }
+
 }
