@@ -123,6 +123,7 @@ public class Reservation implements Serializable {
     public double calculateCost(String checkindate,String checkoutdate,String roomtype,int noofroom) throws ParseException {
         double cost = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        //comit
 
         Date firstDate = (Date) sdf.parse(checkindate);
         Date secondDate = (Date) sdf.parse(checkoutdate);
