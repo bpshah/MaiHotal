@@ -36,6 +36,8 @@ public class UserHomeActivity extends AppCompatActivity {
     public void requestReservation(View view)
     {
         Intent intent = new Intent(this, RoomSearch.class);
+        String username = getIntent().getStringExtra("uniquename");
+        intent.putExtra("userID",username);
         startActivity(intent);
     }
 

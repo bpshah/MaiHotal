@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class SearchforRoomController {
     DatabaseHelper db;
     Room room;
+    ArrayList<String> rooms = new ArrayList<>();
     ArrayList<Room> roomlist;
     public ArrayList<Room> searchforroom(String roomno,String hotel,Context c){
         db = new DatabaseHelper(c);
@@ -34,6 +35,25 @@ public class SearchforRoomController {
             return roomlist;
         }
         else {
+            return null;
+        }
+    }
+
+    public ArrayList<Room> roomsearch(String checkindate_, String checkoutdate_, String noofroom_, String roomtype_, Context contxt) {
+        db = new DatabaseHelper(contxt);
+        Intent intent;
+        Cursor cursor = db.roomsearch(noofroom_,roomtype_);
+        ArrayList<Room> rooms = new ArrayList<Room>();
+        Room r = new Room();
+        if(cursor.getCount()>0){
+            while(cursor.moveToNext()){
+                r = new Room();
+                r.setHotel(cursor.getString(cursor.getColumnIndexOrThrow("hotel")));
+                r.setHotel(cursor.getString(cursor.getColumnIndexOrThrow("roomtype")));
+            }
+            return rooms;
+        }
+        else{
             return null;
         }
     }

@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.sql.Date;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "HotelManagement.db";
@@ -220,4 +222,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public Cursor roomsearch(String noofroom_, String roomtype_) {
+        String query = "select * from room where roomtype = '" + roomtype_+ "' and count(roomstatus='Available')>= '" + noofroom_ + "'";
+        return db.rawQuery(query,null);
+    }
+
+    public void addReservation(Integer reserveID, String userID, String checkindate, String checkoutdate, long days, String roomtype, Integer noofroom, Date bookdate, Integer adlt, Integer chld, String hotel, double finalprice) {
+        String query1 = "insert into reserve(reserveid,username,checkindate,checkoutdate,days,roomtype,noofroom,bookingdate,adults,children,hotel,cost) values(" + reserveID +"," + userID + "," + checkindate + "," + checkoutdate + "," + days + "," + roomtype + "," + noofroom + "," + bookdate + "," + adlt + "," + chld + "," + hotel + "," + finalprice + ")";
+        db.execSQL(query1);
+        int i=0;
+        if(roomtype=="Standard"){
+            i=1;
+        }
+        else if(roomtype=="Deluxe"){
+            i=89;
+        }
+        else{
+            i=97;
+        }
+//        for(int j=0;j<noofroom;j++){
+//            if(db.execSQL("select roomstatus from room where roomno = '"+i+"'")=="Available"){
+//                db.execSQL("update room set roomstatus = 'Unavailable' where roomno = '" + j + "'");
+//            }
+//            i=i+1;
+//        }
+
+    }
 }
